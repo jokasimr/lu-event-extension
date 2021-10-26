@@ -13,7 +13,8 @@ const scrapeEvent = () => {
 
     const place = description.match(/[Pp]lats: (.*)\n/)?.[1];
     const zoomNumber = place.match(/[Zz]oom[^\d]*([\d ]*)/)?.[1].replaceAll(' ', '');
-    const zoomUrl = `https://lu-se.zoom.us/j/${zoomNumber}`;
+    const zoomPassword = place.match(/pwd=([0-9A-Za-z]*)/)?.[1].replaceAll(' ', '');
+    const zoomUrl = `https://lu-se.zoom.us/j/${zoomNumber}` + (zoomPassword ? `?pwd=${zoomPassword}` : '');
 
     const details =
         (zoomNumber ? `<a href="${zoomUrl}">${zoomUrl}</a>\n` : '') +
