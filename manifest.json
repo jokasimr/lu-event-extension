@@ -11,7 +11,7 @@
   "content_scripts": [
     {
       "matches": ["https://www.maths.lu.se/kalendarium/*"],
-      "js": ["add-ics-anchor.js"]
+      "js": ["scrape-event.js"]
     }
   ],
   "permissions": [
