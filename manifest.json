@@ -1,0 +1,20 @@
+{
+  "manifest_version": 2,
+
+  "name": "LU event calender",
+  "description": "The extension adds the ability to download ics files for LU calender events",
+  "version": "1.0",
+
+  "browser_action": {
+   "default_icon": "icon.png"
+  },
+  "content_scripts": [
+    {
+      "matches": ["https://www.maths.lu.se/kalendarium/*"],
+      "js": ["add-ics-anchor.js"]
+    }
+  ],
+  "permissions": [
+   "activeTab"
+   ]
+}
