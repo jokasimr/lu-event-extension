@@ -1,13 +1,10 @@
 {
-  "manifest_version": 2,
+  "manifest_version": 3,
 
   "name": "LU event calender",
-  "description": "The extension adds the ability to download ics files for LU calender events",
+  "description": "The extension adds the ability to add LU calender events to google calender.",
   "version": "1.0",
 
-  "browser_action": {
-   "default_icon": "icon.png"
-  },
   "content_scripts": [
     {
       "matches": ["https://www.maths.lu.se/kalendarium/*"],

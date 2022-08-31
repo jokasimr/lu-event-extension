@@ -1,8 +1,10 @@
 const scrapeEvent = () => {
 
-    const title = document.querySelector('#page_title h1').innerText;
+    const title = document.querySelector('.event-title__heading > h1').innerText;
     const url = window.location.href;
-    const description = document.getElementsByName('calCont')[0].innerText;
+    const description = document.querySelector('.event-text').innerText;
+
+    const info = document.querySelector('#lth_lucalInfoBox').innerText;
 
     const startString = document.querySelector('.calendarDate').innerText;
     const endTimeString = document.querySelector('.endDate .eventTime').innerText;
@@ -11,9 +13,9 @@ const scrapeEvent = () => {
     const start = date(startString);
     const end = date(startString.slice(0, 11) + endTimeString);
 
-    const place = description.match(/[Pp]lats: (.*)\n/)?.[1];
-    const zoomNumber = place.match(/[Zz]oom[^\d]*([\d ]*)/)?.[1].replaceAll(' ', '');
-    const zoomPassword = place.match(/pwd=([0-9A-Za-z]*)/)?.[1].replaceAll(' ', '');
+    const place = info.match(/[Pp]lats[^\n]*\n*(.*)\n/)?.[1];
+    const zoomNumber = info.match(/[Zz]oom[^\d]*([\d ]*)/)?.[1].replaceAll(' ', '');
+    const zoomPassword = info.match(/pwd=([0-9A-Za-z]*)/)?.[1].replaceAll(' ', '');
     const zoomUrl = `https://lu-se.zoom.us/j/${zoomNumber}` + (zoomPassword ? `?pwd=${zoomPassword}` : '');
 
     const details =
@@ -36,7 +38,12 @@ const addToCalenderUrl = ({title, place, details, start, end}) => {
 };
 
 
-document.querySelector('.saveToCalUrl').onclick = e => {
-    e.preventDefault();
-    window.open(addToCalenderUrl(scrapeEvent()));
+document.body.onload = (event) => {
+    const button = document.createElement('button');
+    button.innerText = 'Add to Google Calendar';
+    button.onclick = e => {
+        e.preventDefault();
+        window.open(addToCalenderUrl(scrapeEvent()));
+    };
+    document.querySelector('#lth_lucalInfoBox').appendChild(button);
 };
